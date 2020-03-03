@@ -5,6 +5,7 @@ export const SocketIOContext = createContext({});
 
 export const SocketIOProvider = ({ children, userName }) => {
   const [response, setResponse] = useState(false);
+  const [userOnline, setUserOnline] = useState(false);
   const socket = useRef(
     socketIOClient(
       encodeURI(`https://pager-hiring.herokuapp.com/?username=${userName}`)
@@ -16,6 +17,8 @@ export const SocketIOProvider = ({ children, userName }) => {
       value={{
         response,
         setResponse,
+        userOnline, 
+        setUserOnline,
         socket: socket.current
       }}
     >

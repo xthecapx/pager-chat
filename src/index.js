@@ -1,8 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import App from './App/App'
+import App from './App/App';
+import { UserProvider } from './App/Contexts/User';
 
-import './styles.sass'
+import './styles.sass';
 
-ReactDOM.render(<App />, document.getElementById('pager'));
+const AppProvider = (
+  <UserProvider>
+    <App />
+  </UserProvider>
+);
+
+ReactDOM.render(AppProvider, document.getElementById('pager'));

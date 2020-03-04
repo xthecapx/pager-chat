@@ -11,7 +11,7 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       template: 'src/index.html'
-    }),
+    })
   ],
   module: {
     rules: [
@@ -57,10 +57,17 @@ module.exports = {
             }
           }
         ]
+      },
+      {
+        test: /\.css$/,
+        use: [{ loader: 'style-loader' }, { loader: 'css-loader' }]
       }
     ]
   },
   resolve: {
     extensions: ['.js', '.jsx', '.scss']
+  },
+  devServer: {
+    historyApiFallback: true
   }
 };

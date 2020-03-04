@@ -6,15 +6,24 @@ export const UserProvider = ({ children }) => {
   const [user, setUser] = useState('');
   const [userList, setUserList] = useState([]);
   const [typers, setTypers] = useState({});
+  const [messages, setMessages] = useState([]);
+  const [stickers, setStickers] = useState([]);
+  const [avatar, setAvatar] = useState();
 
   return (
     <UserContext.Provider
       value={{
-        user,
-        setUser,
-        userList,
-        typers, 
+        avatar, 
+        messages,
+        setAvatar,
+        setMessages: message => {
+          setMessages(state => {
+            return [...state, message];
+          });
+        },
+        setStickers,
         setTypers,
+        setUser,
         setUserList: onlineUser => {
           setUserList(state => {
             const currentUser = state.find(user => user === onlineUser);
@@ -25,7 +34,11 @@ export const UserProvider = ({ children }) => {
               return state;
             }
           });
-        }
+        },
+        stickers,
+        typers,
+        user,
+        userList
       }}
     >
       {children}

@@ -1,10 +1,11 @@
-import React, { useContext } from 'react';
+import React, { useContext, createRef, useEffect } from 'react';
 
 import Avatar from './Avatar';
 import ImageMessage from './ImageMessage';
 import TextMessage from './TextMessage';
 
 import { UserContext } from '../../../Contexts/User';
+import styles from './Messages.module.sass';
 
 const formatDate = date => {
   const pad = number => {
@@ -28,13 +29,18 @@ const formatDate = date => {
 
 const Messages = () => {
   const { messages } = useContext(UserContext);
+  const messagesEndRef = createRef();
 
-  console.log(messages);
+  useEffect(() => {
+    if (messagesEndRef) {
+      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [messages, messagesEndRef]);
   return (
     <ul className="pager__messages reset">
       {messages.map(message => (
         <li key={message.time} className="pager__messages__item">
-          <Avatar />
+          <Avatar className={styles.avatar} currentUser={message.username} />
           <strong className="pager__messages__user">
             {`${formatDate(message.date)}: `}
           </strong>
@@ -42,6 +48,7 @@ const Messages = () => {
           {message.type === 'image' && <ImageMessage message={message} />}
         </li>
       ))}
+      <li ref={messagesEndRef} />
     </ul>
   );
 };

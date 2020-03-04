@@ -59,11 +59,6 @@ const ChatboxForm = () => {
       <button
         className={`${styles.btn} pager__btn pager__btn--next`}
         type="submit"
-        onClick={() => {
-          if (userOnline) {
-            socket.emit('text-message', values.text);
-          }
-        }}
       >
         Send
       </button>

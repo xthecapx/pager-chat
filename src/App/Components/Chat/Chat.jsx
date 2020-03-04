@@ -1,10 +1,10 @@
 import React, { useContext, useEffect } from 'react';
 import { SocketIOContext } from '../../Contexts/SocketIO';
 import { UserContext } from '../../Contexts/User';
+import axios from 'axios';
 
 import ChatboxFormik from './Components/ChatboxFormik';
 import Messages from './Components/Messages';
-import Stickers from './Components/Stickers';
 import UserList from './Components/UserList';
 
 import styles from './Chat.module.sass';
@@ -15,9 +15,11 @@ const Chat = () => {
     setUserList,
     userList,
     user,
-    typers,
     setTypers,
-    setMessages
+    setMessages,
+    avatar,
+    setAvatar,
+    setAvatarLoading,
   } = useContext(UserContext);
 
   useEffect(() => {
@@ -38,6 +40,32 @@ const Chat = () => {
     });
   }, []);
 
+  useEffect(() => {
+    userList.forEach(user => {
+      if (!avatar[user]) {
+        setAvatarLoading(state => {
+          return {
+            ...state,
+            [user]: true
+          };
+        });
+        axios
+          .get(`https://ui-avatars.com/api/?name=${user}`, {
+            responseType: 'blob'
+          })
+          .then(response => {
+            setAvatar(user, URL.createObjectURL(response.data));
+            setAvatarLoading(state => {
+              return {
+                ...state,
+                [user]: false
+              };
+            });
+          });
+      }
+    });
+  }, [userList]);
+
   if (userList.length === 0) {
     return <div>Loading!</div>;
   }
@@ -50,12 +78,7 @@ const Chat = () => {
       </div>
       <div className={styles.mainPanel}>
         <Messages />
-        <div className={styles.stickers}>
-          <Stickers />
-          <div className={styles.chatBox}>
-            <ChatboxFormik />
-          </div>
-        </div>
+        <ChatboxFormik />
       </div>
     </div>
   );

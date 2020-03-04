@@ -1,4 +1,5 @@
 import React from 'react';
+
 import styles from './Stickers.module.sass';
 
 const ImageMessage = ({ message }) => {

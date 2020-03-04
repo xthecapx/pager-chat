@@ -1,12 +1,14 @@
 import React, { useContext } from 'react';
+import { useFormikContext } from 'formik';
+
 import { UserContext } from '../../../Contexts/User';
 import { SocketIOContext } from '../../../Contexts/SocketIO';
-
 import styles from './Stickers.module.sass';
 
 const Stickers = () => {
   const { stickers, setStickers } = useContext(UserContext);
   const { socket } = useContext(SocketIOContext);
+  const { setFieldValue } = useFormikContext();
 
   if (stickers.length === 0) {
     return null;
@@ -24,6 +26,7 @@ const Stickers = () => {
               alt: sticker.title
             });
             setStickers([]);
+            setFieldValue('text', '')
           }}
         >
           <img src={sticker.images.preview_gif.url} />

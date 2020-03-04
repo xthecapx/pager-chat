@@ -1,20 +1,20 @@
-import React, { useEffect, useContext } from 'react';
-import axios from 'axios';
+import React, { useContext } from 'react';
 
 import { UserContext } from '../../../Contexts/User';
 
-const Avatar = ({ currentUser, className }) => {
-  const { user, avatar, setAvatar } = useContext(UserContext);
+const Avatar = ({ currentUser = 'default', className }) => {
+  const { avatar, avatarLoading } = useContext(UserContext);
 
-  useEffect(() => {
-    axios
-      .get(`https://ui-avatars.com/api/?name=${currentUser || user}`, { responseType: 'blob' })
-      .then(response => {
-        setAvatar(URL.createObjectURL(response.data));
-      });
-  }, []);
-
-  return <div className={className}>{avatar && <img src={avatar} />}</div>;
+  return (
+    <div className={className}>
+      {avatarLoading[currentUser] && <div className="pager__imageLoader" />}
+      {avatar[currentUser] ? (
+        <img src={avatar[currentUser]} />
+      ) : (
+        <img src={avatar['default']} />
+      )}
+    </div>
+  );
 };
 
 export default Avatar;

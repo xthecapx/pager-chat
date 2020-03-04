@@ -4,18 +4,28 @@ export const UserContext = createContext({});
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState('');
-  const [userList, setUserList] = useState([]);
+  const [userList, setUserList] = useState(['default']);
   const [typers, setTypers] = useState({});
   const [messages, setMessages] = useState([]);
   const [stickers, setStickers] = useState([]);
-  const [avatar, setAvatar] = useState();
+  const [avatar, setAvatar] = useState({});
+  const [avatarLoading, setAvatarLoading] = useState({ 'default': false });
 
   return (
     <UserContext.Provider
       value={{
         avatar,
+        avatarLoading,
         messages,
-        setAvatar,
+        setAvatar: (user, avatar) => {
+          setAvatar(state => {
+            return {
+              ...state,
+              [user]: avatar
+            };
+          });
+        },
+        setAvatarLoading,
         setMessages: message => {
           setMessages(state => {
             return [...state, { ...message, date: new Date(message.time) }];

@@ -58,11 +58,15 @@ ul.reset ul li
 
 .pager
   &__messages
+    overflow-y: scroll
+
     &__item
       align-items: center
       display: flex
-      margin-bottom: 8px
-      padding: 0 1.5em !important
     
     &__user
       margin-right: 8px
+
+ul.reset li.pager__messages__item
+  padding: 0 1.5em
+  margin-bottom: 8px

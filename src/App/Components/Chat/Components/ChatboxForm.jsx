@@ -5,6 +5,8 @@ import axios from 'axios';
 import { SocketIOContext } from '../../../Contexts/SocketIO';
 import { UserContext } from '../../../Contexts/User';
 
+import styles from './ChatboxForm.module.sass'
+
 const queryString = params =>
   Object.keys(params)
     .map(key => {
@@ -52,9 +54,10 @@ const ChatboxForm = () => {
   }, [values, userOnline]);
 
   return (
-    <Form>
-      <Field type="text" name="text" />
+    <Form className={styles.container}>
+      <Field type="text" name="text" className={`${styles.input} pager__input`}/>
       <button
+        className={`${styles.btn} pager__btn pager__btn--next`}
         type="submit"
         onClick={() => {
           if (userOnline) {

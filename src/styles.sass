@@ -1,1 +1,68 @@
 // Global styles
+*,
+*::before,
+*::after 
+  box-sizing: border-box
+  font-family: 'Lato', sans-serif
+
+$green: #1abc9c
+$red: #fa4048a
+
+ul.reset,
+ul.reset li,
+ul.reset ul li 
+  margin: 0
+  padding: 0
+  text-indent: 0
+  list-style-type: none
+
+
+.pager__input 
+  border: solid 1px grey
+  border-radius: 5px
+  display: block
+  padding: 10px
+  width: 100%
+
+  &:focus, 
+  &:valid 
+    box-shadow: none
+    outline: none
+
+    &::-webkit-input-placeholder 
+      font-size: 11px
+
+  &__error
+    min-height: 18.4px
+    color: $red
+
+.pager__label
+  width: 100%
+
+.pager__btn 
+  border-radius: 5px
+  border: 0
+  cursor: pointer
+  height: 40px
+  margin: 0
+  padding: .5em 1em
+  max-width: 250px
+
+  &--next
+    color: white
+    background: $green
+
+    &:hover
+      darken($green, 20%)
+
+
+.pager
+  &__messages
+    &__item
+      align-items: center
+      display: flex
+      margin-bottom: 8px
+      padding: 0 1.5em !important
+    
+    &__user
+      margin-right: 8px

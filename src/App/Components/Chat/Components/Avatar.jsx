@@ -3,7 +3,7 @@ import axios from 'axios';
 
 import { UserContext } from '../../../Contexts/User';
 
-const Avatar = ({ currentUser }) => {
+const Avatar = ({ currentUser, className }) => {
   const { user, avatar, setAvatar } = useContext(UserContext);
 
   useEffect(() => {
@@ -14,7 +14,7 @@ const Avatar = ({ currentUser }) => {
       });
   }, []);
 
-  return <div>{avatar && <img src={avatar} />}</div>;
+  return <div className={className}>{avatar && <img src={avatar} />}</div>;
 };
 
 export default Avatar;

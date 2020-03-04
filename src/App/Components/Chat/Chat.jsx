@@ -7,7 +7,7 @@ import Messages from './Components/Messages';
 import Stickers from './Components/Stickers';
 import UserList from './Components/UserList';
 
-import styles from 'Chat.module.sass';
+import styles from './Chat.module.sass';
 
 const Chat = () => {
   const { socket, setUserOnline, userOnline } = useContext(SocketIOContext);
@@ -50,9 +50,11 @@ const Chat = () => {
       </div>
       <div className={styles.mainPanel}>
         <Messages />
-        <div className={styles.chatBox}>
-          <ChatboxFormik />
+        <div className={styles.stickers}>
           <Stickers />
+          <div className={styles.chatBox}>
+            <ChatboxFormik />
+          </div>
         </div>
       </div>
     </div>

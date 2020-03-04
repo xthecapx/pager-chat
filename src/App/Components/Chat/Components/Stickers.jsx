@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { UserContext } from '../../../Contexts/User';
 import { SocketIOContext } from '../../../Contexts/SocketIO';
+
 import styles from './Stickers.module.sass';
 
 const Stickers = () => {
@@ -12,7 +13,7 @@ const Stickers = () => {
   }
 
   return (
-    <div className="pager__stickers">
+    <div className={styles['pager__stickers']}>
       {stickers.map(sticker => (
         <div
           key={sticker.id}

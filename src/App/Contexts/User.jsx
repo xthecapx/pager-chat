@@ -13,12 +13,12 @@ export const UserProvider = ({ children }) => {
   return (
     <UserContext.Provider
       value={{
-        avatar, 
+        avatar,
         messages,
         setAvatar,
         setMessages: message => {
           setMessages(state => {
-            return [...state, message];
+            return [...state, { ...message, date: new Date(message.time) }];
           });
         },
         setStickers,
